@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RunAway : MonoBehaviour
+public class RunAway : Cell
 {
     // Normal Movements Variables
 
