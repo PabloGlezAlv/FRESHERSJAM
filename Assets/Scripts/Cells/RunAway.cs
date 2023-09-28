@@ -4,12 +4,6 @@ using UnityEngine;
 
 public class RunAway : Cell
 {
-    // Normal Movements Variables
-
-    private Rigidbody2D rb;
-
-    [SerializeField]
-    private float speed = 10.0f;
 
     Vector2 direction;
     public RunAway[] boidsInScene;
@@ -24,7 +18,7 @@ public class RunAway : Cell
 
     void FixedUpdate()
     {
-        direction = new Vector2(transform.position.x - player.transform.position.x, transform.position.y - player.transform.position.y).normalized;
+        direction = new Vector2(- transform.position.x + player.transform.position.x, - transform.position.y + player.transform.position.y).normalized;
         AlignWithOthers();
         MoveToCenter();
         AvoidOtherBoids();

@@ -97,7 +97,7 @@ GameObject:
   - component: {fileID: 355975201588489681}
   - component: {fileID: 8135991444493477310}
   m_Layer: 0
-  m_Name: FollowingCell
+  m_Name: RunAwayCell
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

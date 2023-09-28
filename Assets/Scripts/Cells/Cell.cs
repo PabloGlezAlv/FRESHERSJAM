@@ -5,7 +5,11 @@ using UnityEngine;
 
 public class Cell : MonoBehaviour
 {
-    [Serializefield] private int size = 1;
+    [SerializeField] // Size of the cell
+    private int size = 1;
+    [SerializeField]
+    protected float speed = 10.0f;
+    protected Rigidbody2D rb;
 
     public int getSize()
     {
