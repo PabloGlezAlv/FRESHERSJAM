@@ -58,7 +58,8 @@ public class PlayerEat : MonoBehaviour
             growing = true;
             CommonInfo.timePaused = true;
 
-            if (false /*TODO: For the boss*/)
+            
+            if (collision.gameObject.GetComponent<Boss>())
             {
                 scaleFactor = -(transform.localScale.x - scaleSmall.x);
                 scaleChange = new Vector3(scaleFactor, scaleFactor, 1);

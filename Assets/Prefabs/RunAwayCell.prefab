@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3599804139224090624}
   - component: {fileID: 7772156796888322862}
   m_Layer: 0
-  m_Name: Circle
+  m_Name: RunAwayCellSprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -193,7 +193,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82fbc203d8f0e5340a96ea8e61e479b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  size: 0.5
+  size: 0.1
   speed: 1
   moveToCenterStrength: 2
   localBoidsDistance: 3
