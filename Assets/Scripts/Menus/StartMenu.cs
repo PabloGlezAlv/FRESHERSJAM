@@ -7,7 +7,8 @@ using UnityEngine.SceneManagement;
 public class StartMenu : MonoBehaviour
 {
 
-    public string firstScene = "";
+    public string firstScene;
+    public string settingsScene;
 
     // Start is called before the first frame update
     void Start()
@@ -25,6 +26,11 @@ public class StartMenu : MonoBehaviour
     public void OnGameStart()
     {
         SceneManager.LoadScene(firstScene);
+    }
+
+    public void GoToSettings()
+    {
+        SceneManager.LoadScene(settingsScene);
     }
 
     // Quits to desktop. If testing in the editor, ends play mode.
