@@ -1,0 +1,34 @@
+{
+    "name": "IA_Default",
+    "maps": [
+        {
+            "name": "Pause",
+            "id": "468f8d90-2aaf-4435-b0ca-faef9653c178",
+            "actions": [
+                {
+                    "name": "Pause",
+                    "type": "Button",
+                    "id": "87269a8c-91eb-4bcb-be8d-d3cb4517e4f0",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "467c0941-27b4-4ec2-aab7-ae9e4b4fa701",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Pause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
