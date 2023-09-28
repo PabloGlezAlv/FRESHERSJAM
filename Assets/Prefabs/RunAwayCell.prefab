@@ -145,7 +145,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!58 &355975201588489681
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -175,7 +175,7 @@ CircleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -193,8 +193,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82fbc203d8f0e5340a96ea8e61e479b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  size: 0.5
   speed: 1
-  boidsInScene: []
   moveToCenterStrength: 2
   localBoidsDistance: 3
   avoidOtherStrength: 3

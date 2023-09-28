@@ -24,6 +24,11 @@ public class PlayerEat : MonoBehaviour
         scaleSmall = transform.localScale;
     }
 
+    private void Start()
+    {
+        player = GameObject.FindGameObjectWithTag("Player");
+    }
+
     private void Update()
     {
         if(growing)
@@ -45,7 +50,7 @@ public class PlayerEat : MonoBehaviour
             }
         }
     }
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.GetComponent<Cell>())
         {
@@ -53,7 +58,7 @@ public class PlayerEat : MonoBehaviour
             growing = true;
             CommonInfo.timePaused = true;
 
-            if (false)
+            if (false /*TODO: For the boss*/)
             {
                 scaleFactor = -(transform.localScale.x - scaleSmall.x) / numberOfPulses;
                 scaleChange = new Vector3(scaleFactor, scaleFactor, 1);
