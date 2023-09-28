@@ -60,14 +60,14 @@ public class PlayerEat : MonoBehaviour
 
             if (false /*TODO: For the boss*/)
             {
-                scaleFactor = -(transform.localScale.x - scaleSmall.x) / numberOfPulses;
+                scaleFactor = -(transform.localScale.x - scaleSmall.x);
                 scaleChange = new Vector3(scaleFactor, scaleFactor, 1);
 
             }
             else
             {
                 sizeToGrow = collision.gameObject.GetComponent<Cell>().getSize();
-                scaleFactor = sizeToGrow / numberOfPulses;
+                scaleFactor = sizeToGrow;
             }
 
             scaleChange = new Vector3(scaleFactor, scaleFactor, 1);
