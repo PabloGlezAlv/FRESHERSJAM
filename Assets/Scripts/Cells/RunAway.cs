@@ -6,7 +6,7 @@ public class RunAway : Cell
 {
 
     Vector2 direction;
-    public RunAway[] boidsInScene;
+    RunAway[] boidsInScene;
     GameObject player;
 
     void Start()
@@ -18,7 +18,23 @@ public class RunAway : Cell
 
     void FixedUpdate()
     {
-        direction = new Vector2(- transform.position.x + player.transform.position.x, - transform.position.y + player.transform.position.y).normalized;
+        if (CommonInfo.timePaused)
+        {
+            rb.velocity = Vector3.zero;
+            transform.rotation = transform.rotation;
+            return;
+        }
+
+        List<RunAway> delete = new List<RunAway>();
+        foreach (RunAway boid in boidsInScene)
+        {
+            if (boid == null) {
+                delete.Add(boid);
+            }
+        }
+
+
+        direction = new Vector2(+ transform.position.x - player.transform.position.x, + transform.position.y - player.transform.position.y).normalized;
         AlignWithOthers();
         MoveToCenter();
         AvoidOtherBoids();
@@ -39,15 +55,23 @@ public class RunAway : Cell
         Vector2 positionSum = transform.position;//calculate sum of position of nearby boids and get count of boid
         int count = 0;
 
-        foreach (RunAway boid in boidsInScene)
+        foreach (Collider2D coll in Physics2D.OverlapCircleAll(transform.position, localBoidsDistance) )
         {
-            float distance = Vector2.Distance(boid.transform.position, transform.position);
-            if (distance <= localBoidsDistance)
-            {
-                positionSum += (Vector2)boid.transform.position;
+            if(coll.GetComponent<RunAway>() != null) {
+                positionSum += (Vector2)coll.transform.position;
                 count++;
             }
         }
+
+        //foreach (RunAway boid in boidsInScene)
+        //{
+        //    float distance = Vector2.Distance(boid.transform.position, transform.position);
+        //    if (distance <= localBoidsDistance)
+        //    {
+        //        positionSum += (Vector2)boid.transform.position;
+        //        count++;
+        //    }
+        //}
 
         if (count == 0)
         {
@@ -72,17 +96,25 @@ public class RunAway : Cell
 
         Vector2 faceAwayDirection = Vector2.zero;//this is a vector that will hold direction away from near boid so we can steer to it to avoid the collision.
 
-        //we need to iterate through all boid
-        foreach (RunAway boid in boidsInScene)
+        foreach (Collider2D coll in Physics2D.OverlapCircleAll(transform.position, collisionAvoidCheckDistance))
         {
-            float distance = Vector2.Distance(boid.transform.position, transform.position);
-
-            //if the distance is within range calculate away vector from it and subtract from away direction.
-            if (distance <= collisionAvoidCheckDistance)
+            if (coll.GetComponent<RunAway>() != null)
             {
-                faceAwayDirection = faceAwayDirection + (Vector2)(transform.position - boid.transform.position);
+                faceAwayDirection = faceAwayDirection + (Vector2)(transform.position - coll.transform.position);
             }
         }
+
+        //we need to iterate through all boid
+        //foreach (RunAway boid in boidsInScene)
+        //{
+        //    float distance = Vector2.Distance(boid.transform.position, transform.position);
+
+        //    //if the distance is within range calculate away vector from it and subtract from away direction.
+        //    if (distance <= collisionAvoidCheckDistance)
+        //    {
+        //        faceAwayDirection = faceAwayDirection + (Vector2)(transform.position - boid.transform.position);
+        //    }
+        //}
 
         faceAwayDirection = faceAwayDirection.normalized;//we need to normalize it so we are only getting direction
 
@@ -99,15 +131,24 @@ public class RunAway : Cell
         Vector2 directionSum = Vector3.zero;
         int count = 0;
 
-        foreach (RunAway boid in boidsInScene)
+        foreach (Collider2D coll in Physics2D.OverlapCircleAll(transform.position, alignmentCheckDistance))
         {
-            float distance = Vector2.Distance(boid.transform.position, transform.position);
-            if (distance <= localBoidsDistance)
+            if (coll.GetComponent<RunAway>() != null)
             {
-                directionSum += boid.direction;
+                directionSum += coll.GetComponent<RunAway>().direction;
                 count++;
             }
         }
+
+        //foreach (RunAway boid in boidsInScene)
+        //{
+        //    float distance = Vector2.Distance(boid.transform.position, transform.position);
+        //    if (distance <= localBoidsDistance)
+        //    {
+        //        directionSum += boid.direction;
+        //        count++;
+        //    }
+        //}
 
         Vector2 directionAverage = directionSum / count;
         directionAverage = directionAverage.normalized;
