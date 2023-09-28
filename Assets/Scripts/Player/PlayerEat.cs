@@ -8,11 +8,7 @@ public class PlayerEat : MonoBehaviour
     {
         Debug.Log(collision.name);
 
-        if(collision.gameObject.GetComponent<RunAway>())
-        {
-            Destroy(collision.gameObject);
-        }
-        else if(collision.gameObject.GetComponent<Roaming>())
+        if(collision.gameObject.GetComponent<Cell>())
         {
             Destroy(collision.gameObject);
         }
