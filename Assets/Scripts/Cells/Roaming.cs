@@ -23,6 +23,13 @@ public class Roaming : Cell
     // Update is called once per frame
     void FixedUpdate()
     {
+        if (CommonInfo.timePaused)
+        {
+            rb.velocity = Vector3.zero;
+            transform.rotation = transform.rotation;
+            return;
+        }
+
         currTravelTime -= Time.fixedDeltaTime;
         if(currTravelTime <= 0)
         {

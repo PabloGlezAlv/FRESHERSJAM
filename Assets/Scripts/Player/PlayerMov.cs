@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerMov : MonoBehaviour
@@ -18,20 +19,30 @@ public class PlayerMov : MonoBehaviour
 
     private void Update()
     {
-        // Get movement
-        horizontal = Input.GetAxisRaw("Horizontal");
-        vertical = Input.GetAxisRaw("Vertical");
 
-        // Body rotation
-        Vector3 dir = Input.mousePosition - Camera.main.WorldToScreenPoint(transform.position);
-        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+        Debug.Log(CommonInfo.timePaused);
+        if (!CommonInfo.timePaused)
+        {
+            // Get movement
+            horizontal = Input.GetAxisRaw("Horizontal");
+            vertical = Input.GetAxisRaw("Vertical");
 
-        Debug.Log(Input.mousePosition);
+            // Body rotation
+            Vector3 dir = Input.mousePosition - Camera.main.WorldToScreenPoint(transform.position);
+            float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+            transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+        }
+        else
+        {
+            rb.velocity = Vector3.zero;
+            transform.rotation = transform.rotation;
+        }
     }
 
     private void FixedUpdate()
     {
+        if (CommonInfo.timePaused) return;
+
         // Use the movement
         rb.velocity = new Vector2(horizontal * runSpeed, vertical * runSpeed);
     }
