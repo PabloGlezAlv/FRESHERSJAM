@@ -6,7 +6,7 @@ public class Boss : Cell
 {
 
     [SerializeField]
-    private Collider2D trigger;
+    private RoomTrigger trigger;
 
     Vector2 direction;
     GameObject player;
