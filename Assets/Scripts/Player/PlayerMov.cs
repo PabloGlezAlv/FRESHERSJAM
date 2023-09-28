@@ -19,8 +19,6 @@ public class PlayerMov : MonoBehaviour
 
     private void Update()
     {
-
-        Debug.Log(CommonInfo.timePaused);
         if (!CommonInfo.timePaused)
         {
             // Get movement

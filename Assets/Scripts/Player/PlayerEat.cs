@@ -45,11 +45,9 @@ public class PlayerEat : MonoBehaviour
             }
         }
     }
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log(collision.name);
-
-        if(collision.gameObject.GetComponent<Cell>())
+        if (collision.gameObject.GetComponent<Cell>())
         {
             float scaleFactor;
             growing = true;
@@ -57,13 +55,13 @@ public class PlayerEat : MonoBehaviour
 
             if (false)
             {
-               scaleFactor = -(transform.localScale.x - scaleSmall.x) / numberOfPulses;
+                scaleFactor = -(transform.localScale.x - scaleSmall.x) / numberOfPulses;
                 scaleChange = new Vector3(scaleFactor, scaleFactor, 1);
 
             }
             else
             {
-                sizeToGrow = collision.GetComponent<Cell>().getSize();
+                sizeToGrow = collision.gameObject.GetComponent<Cell>().getSize();
                 scaleFactor = sizeToGrow / numberOfPulses;
             }
 
@@ -71,4 +69,5 @@ public class PlayerEat : MonoBehaviour
             Destroy(collision.gameObject);
         }
     }
+
 }
