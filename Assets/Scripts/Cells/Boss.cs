@@ -1,12 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static System.TimeZoneInfo;
 
 public class Boss : Cell
 {
 
     [SerializeField]
     private RoomTrigger trigger;
+
+    [SerializeField]
+    private ChangeColor changeColor;
+
 
     Vector2 direction;
     GameObject player;
@@ -21,6 +26,7 @@ public class Boss : Cell
     {
         trigger.enabled = false;
         player.GetComponent<Collider2D>().enabled = false;
+        changeColor.ChangeColorStart();
     }
 
     void FixedUpdate()
