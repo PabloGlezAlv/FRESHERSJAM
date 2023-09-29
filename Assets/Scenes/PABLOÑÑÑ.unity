@@ -139,6 +139,10 @@ PrefabInstance:
       propertyPath: m_IsTrigger
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3774109924430848334, guid: 120136d1c4428a84d86b0efd56ef60a7, type: 3}
+      propertyPath: pauseMenu
+      value: 
+      objectReference: {fileID: 2807907882646103557, guid: 19a2507a74b06ec4397078250e4072c2, type: 3}
     - target: {fileID: 4568375991035520739, guid: 120136d1c4428a84d86b0efd56ef60a7, type: 3}
       propertyPath: m_Name
       value: Player
