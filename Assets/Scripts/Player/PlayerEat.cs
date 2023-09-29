@@ -49,7 +49,7 @@ public class PlayerEat : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.GetComponent<Cell>())
+        if (collision.gameObject.GetComponent<Cell>() && collision.gameObject.GetComponent<Cell>().getSizeToEat() <= player.transform.localScale.x )
         {
             float scaleFactor;
             growing = true;
@@ -63,7 +63,7 @@ public class PlayerEat : MonoBehaviour
             else
             {
                 sizeToGrow = collision.gameObject.GetComponent<Cell>().getSize();
-                scaleFactor = sizeToGrow;
+                scaleFactor = sizeToGrow / numberOfPulses;
             }
 
             Debug.Log(scaleFactor);
