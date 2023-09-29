@@ -25,6 +25,14 @@ public class Boss : Cell
 
     void FixedUpdate()
     {
+        if (CommonInfo.timePaused)
+        {
+            rb.velocity = Vector3.zero;
+            transform.rotation = transform.rotation;
+            return;
+        }
+
+
         direction = 
             new Vector2(- transform.position.x + player.transform.position.x, - transform.position.y + player.transform.position.y).normalized;
 

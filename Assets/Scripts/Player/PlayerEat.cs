@@ -10,7 +10,7 @@ public class PlayerEat : MonoBehaviour
     [SerializeField] int numberOfPulses;
 
     private float timer = 0;
-    private const float PULSETIMER = 0.2f;
+    [SerializeField] float PULSETIMER = 0.2f;
     private float sizeToGrow = 0;
     private bool growing = false;
     private int nPulses = 0;
@@ -19,14 +19,11 @@ public class PlayerEat : MonoBehaviour
     private Vector3 scaleSmall = Vector3.one;
 
 
-    private void Init()
-    {
-        scaleSmall = transform.localScale;
-    }
 
     private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
+        scaleSmall = new Vector3(player.transform.localScale.x, player.transform.localScale.y, player.transform.localScale.z);
     }
 
     private void Update()
@@ -61,15 +58,15 @@ public class PlayerEat : MonoBehaviour
             
             if (collision.gameObject.GetComponent<Boss>())
             {
-                scaleFactor = -(transform.localScale.x - scaleSmall.x);
-                scaleChange = new Vector3(scaleFactor, scaleFactor, 1);
-
+                   scaleFactor = -(player.transform.localScale.x - scaleSmall.x) /numberOfPulses;
             }
             else
             {
                 sizeToGrow = collision.gameObject.GetComponent<Cell>().getSize();
                 scaleFactor = sizeToGrow;
             }
+
+            Debug.Log(scaleFactor);
 
             scaleChange = new Vector3(scaleFactor, scaleFactor, 1);
             Destroy(collision.gameObject);
