@@ -40,7 +40,7 @@ public class Cell : MonoBehaviour
     {
         if (collision.gameObject.GetComponent<PlayerMov>()) 
         {
-            PlayerEat peat = GameObject.FindGameObjectWithTag("Mouth").GetComponentInChildren<PlayerEat>();
+            PlayerEat peat = collision.gameObject.GetComponentInChildren<PlayerEat>();
             peat.reduceSize(sizeHitDecrease);
         }
     }

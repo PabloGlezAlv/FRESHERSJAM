@@ -48,7 +48,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   size: 0.1
+  sizeToEat: 1
   speed: 0.75
+  sizeHitDecrease: 0.05
   travelTime: 2
   travelTimeModifier: 0.75
 --- !u!50 &1505282469383469552

@@ -134,7 +134,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 4568375991035520739}
-  numberOfPulses: 1
+  numberOfPulses: 10
+  PULSETIMER: 0.01
 --- !u!1 &4568375991035520739
 GameObject:
   m_ObjectHideFlags: 0
@@ -150,6 +151,7 @@ GameObject:
   - component: {fileID: 2937454412488867409}
   - component: {fileID: 3634555544818245054}
   - component: {fileID: 3774109924430848334}
+  - component: {fileID: 1611775419137080133}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -342,3 +344,39 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24c5878deade74549bd92db7dd93f394, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pauseMenu: {fileID: 2807907882646103557, guid: 19a2507a74b06ec4397078250e4072c2, type: 3}
+--- !u!58 &1611775419137080133
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4568375991035520739}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.1

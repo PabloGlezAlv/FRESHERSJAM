@@ -73,7 +73,7 @@ public class PlayerEat : MonoBehaviour
                 scaleFactor = sizeToGrow / numberOfPulses;
             }
 
-            Debug.Log(scaleFactor);
+            //Debug.Log(scaleFactor);
 
             scaleChange = new Vector3(scaleFactor, scaleFactor, 0);
             Destroy(collision.gameObject);

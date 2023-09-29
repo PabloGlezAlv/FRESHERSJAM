@@ -194,7 +194,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   size: 0.1
+  sizeToEat: 1
   speed: 1
+  sizeHitDecrease: 0.05
   moveToCenterStrength: 2
   localBoidsDistance: 3
   avoidOtherStrength: 3
