@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
 public class PlayerEat : MonoBehaviour
@@ -36,6 +37,12 @@ public class PlayerEat : MonoBehaviour
                 //Make the player bigger
                 player.transform.localScale += scaleChange;
 
+                //CHECK DEAD
+                if(player.transform.localScale.x < scaleSmall.x)
+                {
+                    SceneManager.LoadScene("Dead Menu");
+                }
+
                 nPulses++;
                 timer = 0;
                 if (nPulses >= numberOfPulses)
@@ -68,9 +75,16 @@ public class PlayerEat : MonoBehaviour
 
             Debug.Log(scaleFactor);
 
-            scaleChange = new Vector3(scaleFactor, scaleFactor, 1);
+            scaleChange = new Vector3(scaleFactor, scaleFactor, 0);
             Destroy(collision.gameObject);
         }
+    }
+
+    public void reduceSize(float size)
+    {
+        growing = true;
+        CommonInfo.timePaused = true;
+        scaleChange = new Vector3(-size / numberOfPulses, -size / numberOfPulses, 0);
     }
 
 }

@@ -13,6 +13,20 @@ public class Cell : MonoBehaviour
     protected float speed = 10.0f;
     protected Rigidbody2D rb;
 
+    [SerializeField]
+    private float sizeHitDecrease = 0.5f;
+
+    private GameObject player;
+    private void Start()
+    {
+        player = GameObject.FindGameObjectWithTag("Player");
+    }
+
+    public float getSizeHit()
+    {
+        return sizeHitDecrease;
+    }
+
     public float getSize()
     {
         return size;
@@ -20,5 +34,14 @@ public class Cell : MonoBehaviour
     public float getSizeToEat()
     {
         return sizeToEat;
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.GetComponent<PlayerMov>()) 
+        {
+            PlayerEat peat = GameObject.FindGameObjectWithTag("Mouth").GetComponentInChildren<PlayerEat>();
+            peat.reduceSize(sizeHitDecrease);
+        }
     }
 }
