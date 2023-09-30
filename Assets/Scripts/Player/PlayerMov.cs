@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class PlayerMov : MonoBehaviour
@@ -12,25 +13,48 @@ public class PlayerMov : MonoBehaviour
 
     [SerializeField] float runSpeed = 20.0f;
 
+    [SerializeField] float timeFreeze = 1.0f;
+
+    private bool freeze = false;
+
+    float timer = 0;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+    }
+
+    public void setFreeze( bool set)
+    {
+        freeze = true;
     }
 
     private void Update()
     {
         if (!CommonInfo.timePaused)
         {
-            // Get movement
-            horizontal = Input.GetAxisRaw("Horizontal");
-            vertical = Input.GetAxisRaw("Vertical");
+            if(!freeze)
+            {           
+                // Get movement
+                horizontal = Input.GetAxisRaw("Horizontal");
+                vertical = Input.GetAxisRaw("Vertical");
 
-            // Body rotation - only happens if the game is not paused (i.e., timeScale != 0)
-            if (Time.timeScale != 0)
+                // Body rotation - only happens if the game is not paused (i.e., timeScale != 0)
+                if (Time.timeScale != 0)
+                {
+                    Vector3 dir = Input.mousePosition - Camera.main.WorldToScreenPoint(transform.position);
+                    float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+                    transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+                }
+            }
+            else
             {
-                Vector3 dir = Input.mousePosition - Camera.main.WorldToScreenPoint(transform.position);
-                float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-                transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+                timer += Time.deltaTime;
+                if(timer >= timeFreeze)
+                {
+                    timer = 0;
+                    freeze = false;
+                }
             }
         }
         else
