@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RunAway : Cell
+public class Soldier : Cell
 {
 
     Vector2 direction;
@@ -34,7 +34,7 @@ public class RunAway : Cell
         }
 
 
-        direction = new Vector2(+ transform.position.x - player.transform.position.x, + transform.position.y - player.transform.position.y).normalized;
+        direction = new Vector2(- transform.position.x + player.transform.position.x, - transform.position.y + player.transform.position.y).normalized;
         AlignWithOthers();
         MoveToCenter();
         AvoidOtherBoids();
@@ -57,7 +57,7 @@ public class RunAway : Cell
 
         foreach (Collider2D coll in Physics2D.OverlapCircleAll(transform.position, localBoidsDistance) )
         {
-            if(coll.GetComponent<RunAway>() != null) {
+            if(coll.GetComponent<Soldier>() != null) {
                 positionSum += (Vector2)coll.transform.position;
                 count++;
             }
@@ -133,9 +133,9 @@ public class RunAway : Cell
 
         foreach (Collider2D coll in Physics2D.OverlapCircleAll(transform.position, alignmentCheckDistance))
         {
-            if (coll.GetComponent<RunAway>() != null)
+            if (coll.GetComponent<Soldier>() != null)
             {
-                directionSum += coll.GetComponent<RunAway>().direction;
+                directionSum += coll.GetComponent<Soldier>().direction;
                 count++;
             }
         }
