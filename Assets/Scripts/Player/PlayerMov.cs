@@ -7,6 +7,7 @@ using UnityEngine;
 public class PlayerMov : MonoBehaviour
 {
     private Rigidbody2D rb;
+    private SpriteRenderer rbSprite;
 
     private float horizontal;
     private float vertical;
@@ -14,16 +15,25 @@ public class PlayerMov : MonoBehaviour
     [SerializeField] float runSpeed = 20.0f;
 
     [SerializeField] float timeFreeze = 0.5f;
+    [SerializeField] float dieSpeed = 1f;
+    [SerializeField] GameObject endBlur;
 
     private bool freeze = false;
 
     float timer = 0;
 
+    bool dying = false;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        rbSprite = GetComponent<SpriteRenderer>();
     }
 
+    public void die()
+    {
+        dying = true;
+    }
     public void setFreeze( bool set)
     {
         freeze = true;
@@ -67,6 +77,18 @@ public class PlayerMov : MonoBehaviour
         {
             rb.velocity = Vector3.zero;
             transform.rotation = transform.rotation;
+        }
+
+        if(dying)
+        {
+            Color tmp = rbSprite.color;
+            tmp.a -= dieSpeed * Time.deltaTime;
+            if (tmp.a <= 0)
+            {
+                endBlur.GetComponent<Blur>().StartBlur();
+                Destroy(this.gameObject);
+            }
+            rbSprite.color = tmp;
         }
     }
 
