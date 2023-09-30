@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+using UnityEngine.UI;
+using static UnityEngine.UI.ScrollRect;
 
 public class PlayerMov : MonoBehaviour
 {
@@ -18,6 +20,12 @@ public class PlayerMov : MonoBehaviour
     private bool freeze = false;
 
     float timer = 0;
+
+    Vector2 acceleration = new Vector2(0, 0);
+    Vector2 lastMovementDirection = new Vector2(1, 1);
+
+    [SerializeField]
+    float MAX_ACCELERATION = 5;
 
     private void Start()
     {
@@ -69,7 +77,63 @@ public class PlayerMov : MonoBehaviour
         if (CommonInfo.timePaused) return;
 
         // Use the movement
-        rb.velocity = new Vector2(horizontal * runSpeed, vertical * runSpeed);
+        if (horizontal == 0)
+        {
+            if (lastMovementDirection.x > 0)
+            {
+                acceleration.x -= Time.deltaTime;
+                if (acceleration.x < 0)
+                    acceleration.x = 0;
+                else if (acceleration.x > MAX_ACCELERATION)
+                    acceleration.x = MAX_ACCELERATION;
+            }
+            else if (lastMovementDirection.x < 0)
+            {
+                acceleration.x += Time.deltaTime;
+                if (acceleration.x > 0)
+                    acceleration.x = 0;
+                else if (acceleration.y < MAX_ACCELERATION * -1)
+                    acceleration.y = MAX_ACCELERATION * -1;
+            }
+        }
+        else
+        {
+            lastMovementDirection.x = horizontal;
+            acceleration.x += (Time.deltaTime * horizontal);
+        }
+
+        if (vertical == 0)
+        {
+            if (lastMovementDirection.y > 0)
+            {
+                acceleration.y -= Time.deltaTime;
+                if (acceleration.y < 0)
+                    acceleration.y = 0;
+            }
+            else if (lastMovementDirection.y < 0)
+            {
+                acceleration.y += Time.deltaTime;
+                if (acceleration.y > 0)
+                    acceleration.y = 0;
+            }
+
+        }
+        else
+        {
+            lastMovementDirection.y = vertical;
+            acceleration.y += (Time.deltaTime * vertical);
+        }
+
+        rb.velocity = new Vector2(runSpeed * acceleration.x, runSpeed * acceleration.y);
     }
 
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (rb.velocity.x >= -1 && rb.velocity.x <= 1)
+            acceleration.x = rb.velocity.x;
+
+        if (rb.velocity.y >= -1 && rb.velocity.y <= 1)
+            acceleration.y = rb.velocity.y;
+    }
 }
