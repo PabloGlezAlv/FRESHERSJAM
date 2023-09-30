@@ -6,6 +6,7 @@ public class Explosion : MonoBehaviour
 {
     private float time = 0;
     [SerializeField] float explosionTime = 5f;
+    [SerializeField] float explosionDuration = 0.4f;
 
     float timer = 0;
     float MAX_TIME = 1;
@@ -21,12 +22,17 @@ public class Explosion : MonoBehaviour
     {
         timer += Time.deltaTime;
 
-        if (timer > MAX_TIME)
+        if (timer > MAX_TIME && !explode)
         {
             timer = 0;
             CommonInfo.cameraMoving = true;
 
             Invoke("CreateExplosion", CommonInfo.TimeMoving);
+        }
+        else if (timer > explosionDuration && !explode)
+        {
+            explode = false;
+            timer = 0;
         }
     }
 

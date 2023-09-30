@@ -72,7 +72,7 @@ public class PlayerMov : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (CommonInfo.timePaused) return;
+        if (CommonInfo.timePaused || freeze) return;
 
         // Use the movement
         rb.velocity = new Vector2(horizontal * runSpeed, vertical * runSpeed);
