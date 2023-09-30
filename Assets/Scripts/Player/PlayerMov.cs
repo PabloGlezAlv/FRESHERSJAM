@@ -27,6 +27,8 @@ public class PlayerMov : MonoBehaviour
     [SerializeField]
     float MAX_ACCELERATION = 5; // To stop the player's velocity from increasing forever.
 
+    Queue<Vector3> mousePos = new Queue<Vector3>();    // This queue stores multiple frames of mouse positions, to get some input lag.
+
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -46,14 +48,7 @@ public class PlayerMov : MonoBehaviour
                 // Get movement
                 horizontal = Input.GetAxisRaw("Horizontal");
                 vertical = Input.GetAxisRaw("Vertical");
-
-                // Body rotation - only happens if the game is not paused (i.e., timeScale != 0)
-                if (Time.timeScale != 0)
-                {
-                    Vector3 dir = Input.mousePosition - Camera.main.WorldToScreenPoint(transform.position);
-                    float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-                    transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-                }
+                SetPlayerRotation();
             }
             else
             {
@@ -164,8 +159,29 @@ public class PlayerMov : MonoBehaviour
 
             if (acceleration.y > 0)
                 acceleration.y = 0;
-            else if (acceleration.y < MAX_ACCELERATION)
-                acceleration.y = MAX_ACCELERATION;
+            else if (acceleration.y < MAX_ACCELERATION * -1)
+                acceleration.y = MAX_ACCELERATION * -1;
+        }
+    }
+
+    /*
+     * Rotates the player - but with some input lag.
+     */
+    private void SetPlayerRotation()
+    {
+        // Body rotation - only happens if the game is not paused (i.e., timeScale != 0)
+        if (Time.timeScale != 0)
+        {
+            // Enqueue the current mouse position.
+            mousePos.Enqueue(Input.mousePosition);
+
+            // The mouse position will always be 100 frames behind.
+            if (mousePos.Count > 100)
+            {
+                Vector3 dir = mousePos.Dequeue() - Camera.main.WorldToScreenPoint(transform.position);
+                float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+                transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+            }
         }
     }
 }
