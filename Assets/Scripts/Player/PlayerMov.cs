@@ -13,7 +13,7 @@ public class PlayerMov : MonoBehaviour
 
     [SerializeField] float runSpeed = 20.0f;
 
-    [SerializeField] float timeFreeze = 1.0f;
+    [SerializeField] float timeFreeze = 0.5f;
 
     private bool freeze = false;
 
@@ -27,10 +27,13 @@ public class PlayerMov : MonoBehaviour
     public void setFreeze( bool set)
     {
         freeze = true;
+        rb.velocity = Vector3.zero;
+        Debug.Log(rb.velocity);
     }
 
     private void Update()
     {
+
         if (!CommonInfo.timePaused)
         {
             if(!freeze)
@@ -49,8 +52,11 @@ public class PlayerMov : MonoBehaviour
             }
             else
             {
+                Debug.Log(rb.velocity);
                 timer += Time.deltaTime;
-                if(timer >= timeFreeze)
+                rb.velocity = Vector3.zero;
+                transform.rotation = transform.rotation;
+                if (timer >= timeFreeze)
                 {
                     timer = 0;
                     freeze = false;
