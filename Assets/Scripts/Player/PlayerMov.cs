@@ -225,14 +225,19 @@ public class PlayerMov : MonoBehaviour
         // Body rotation - only happens if the game is not paused (i.e., timeScale != 0)
         if (Time.timeScale != 0)
         {
-            mousePos.Enqueue(Input.mousePosition);
+            /*mousePos.Enqueue(Input.mousePosition);
 
-            if (mousePos.Count > 50)
+            if (mousePos.Count > 10)
             {
                 Vector3 dir = mousePos.Dequeue() - Camera.main.WorldToScreenPoint(transform.position);
                 float mouseAngle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
                 transform.rotation = Quaternion.AngleAxis(mouseAngle, Vector3.forward);
-            }
+            }*/
+
+            Vector3 dir = Input.mousePosition - Camera.main.WorldToScreenPoint(transform.position);
+            float mouseAngle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+            transform.rotation = Quaternion.AngleAxis(mouseAngle, Vector3.forward);
+
         }
     }
 }
