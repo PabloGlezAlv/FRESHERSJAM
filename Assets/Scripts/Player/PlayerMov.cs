@@ -27,7 +27,7 @@ public class PlayerMov : MonoBehaviour
     [SerializeField]
     float MAX_ACCELERATION = 5; // To stop the player's velocity from increasing forever.
 
-    Queue<Vector3> mousePos = new Queue<Vector3>();    // This queue stores multiple frames of mouse positions, to get some input lag.
+    Queue<Vector3> mousePos = new Queue<Vector3>();
 
     private void Start()
     {
@@ -172,15 +172,13 @@ public class PlayerMov : MonoBehaviour
         // Body rotation - only happens if the game is not paused (i.e., timeScale != 0)
         if (Time.timeScale != 0)
         {
-            // Enqueue the current mouse position.
             mousePos.Enqueue(Input.mousePosition);
 
-            // The mouse position will always be 100 frames behind.
-            if (mousePos.Count > 100)
+            if (mousePos.Count > 50)
             {
                 Vector3 dir = mousePos.Dequeue() - Camera.main.WorldToScreenPoint(transform.position);
-                float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-                transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+                float mouseAngle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+                transform.rotation = Quaternion.AngleAxis(mouseAngle, Vector3.forward);
             }
         }
     }
