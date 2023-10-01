@@ -25,6 +25,7 @@ public class PlayerEat : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player");
         scaleSmall = new Vector3(player.transform.localScale.x, player.transform.localScale.y, player.transform.localScale.z);
+        player.transform.localScale = new Vector3(player.transform.localScale.x + 0.5f, player.transform.localScale.y + 0.5f, player.transform.localScale.z);
     }
 
     private void Update()
@@ -66,7 +67,7 @@ public class PlayerEat : MonoBehaviour
             
             if (collision.gameObject.GetComponent<Boss>())
             {
-                   scaleFactor = -(player.transform.localScale.x - 0.01f - scaleSmall.x) / (float) numberOfPulses;
+                   scaleFactor = -(player.transform.localScale.x - 0.5f - scaleSmall.x) / (float) numberOfPulses;
             }
             else
             {
@@ -83,7 +84,7 @@ public class PlayerEat : MonoBehaviour
 
     public void reduceSize(float size)
     {
-        if (growing) return;
+        //if (growing) return;
         growing = true;
         //CommonInfo.timePaused = true;
         scaleChange = new Vector3(-size / numberOfPulses, -size / numberOfPulses, 0);
