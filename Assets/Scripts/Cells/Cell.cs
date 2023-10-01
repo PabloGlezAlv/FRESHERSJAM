@@ -11,12 +11,18 @@ public class Cell : MonoBehaviour
     private float sizeToEat = 1.0f;
     [SerializeField]
     protected float speed = 10.0f;
+    [SerializeField]
+    protected float knockbackTime = 1f;
     protected Rigidbody2D rb;
 
     [SerializeField]
     private float sizeHitDecrease = 0.5f;
 
     private GameObject player;
+    protected bool knockback = false;
+    
+    protected float currKnockbackTime = 0f;
+
     private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
@@ -42,6 +48,15 @@ public class Cell : MonoBehaviour
         {
             PlayerEat peat = collision.gameObject.GetComponentInChildren<PlayerEat>();
             peat.reduceSize(sizeHitDecrease);
+            collision.gameObject.GetComponent<Repel>().RepelCells();
         }
+    }
+
+    public void KnockBack(Vector3 force)
+    {
+        Debug.Log("Trying");
+        rb.AddForce(force, ForceMode2D.Impulse);
+        knockback = true;
+        currKnockbackTime = 0;
     }
 }
