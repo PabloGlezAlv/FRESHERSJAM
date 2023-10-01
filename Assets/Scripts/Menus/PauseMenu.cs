@@ -36,7 +36,7 @@ public class PauseMenu : MonoBehaviour
     public void OnQuitToMenu()
     {
         Time.timeScale = 1; // Resume game time before quitting to the menu.
-        SceneManager.LoadScene(startMenuScene);
+        SceneManager.LoadScene("SamDevScene");
     }
 
     // Close the game. If playing in the editor, end play mode.

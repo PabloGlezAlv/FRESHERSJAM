@@ -10,8 +10,7 @@ using UnityEngine.SceneManagement;
 public class StartMenu : MonoBehaviour
 {
 
-    public string firstScene;
-    public string settingsScene;
+    [SerializeField] AudioSource audio;
 
     [SerializeField] AudioSource buttonClickSound;
 
@@ -34,15 +33,15 @@ public class StartMenu : MonoBehaviour
         buttonClickSound.Play();
     }
 
-    public void GoToSettings()
-    {
-        SceneManager.LoadScene(settingsScene);
+        audio.Play();
     }
+
 
     // Quits to desktop. If testing in the editor, ends play mode.
     public void OnGameQuit()
     {
         buttonClickSound.Play();
+        audio.Play();
 
         #if UNITY_EDITOR
         EditorApplication.ExitPlaymode();

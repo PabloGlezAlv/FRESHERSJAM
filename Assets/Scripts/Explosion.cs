@@ -16,14 +16,13 @@ public class Explosion : MonoBehaviour
     SpriteRenderer redVeinImage;
 
     float timer = 0;
-    float MAX_TIME = 1;
     bool explode = false;
     bool startExplosion = false;
     bool alreadyStopped = false;
 
     float speed = 3.5f;
 
-    float belowMARGIN = 0.0f;
+    float belowMARGIN = 0f;
     int countDown = 1;
 
     [SerializeField] AudioSource explosionIncoming;
@@ -43,7 +42,7 @@ public class Explosion : MonoBehaviour
 
         if(!explode && !startExplosion)
         {
-            if (timer > MAX_TIME)
+            if (timer > explosionTime)
             {
                 timer = 0;
                 CommonInfo.cameraMoving = true;

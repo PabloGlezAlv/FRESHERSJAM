@@ -96,7 +96,6 @@ public class PlayerMov : MonoBehaviour
             if (tmp.a <= 0)
             {
                 endBlur.GetComponent<Blur>().StartBlur();
-                Destroy(this.gameObject);
             }
             rbSprite.color = tmp;
         }
