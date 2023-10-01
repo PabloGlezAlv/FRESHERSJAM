@@ -1,6 +1,9 @@
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
+
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -39,11 +42,10 @@ public class PauseMenu : MonoBehaviour
     // Close the game. If playing in the editor, end play mode.
     public void OnQuitToDesktop()
     {
-        if (Application.isEditor)
-        {
-            EditorApplication.ExitPlaymode();
-        }
-        else
-            Application.Quit();
+        #if UNITY_EDITOR
+        EditorApplication.ExitPlaymode();
+        #else
+        Application.Quit();
+        #endif
     }
 }

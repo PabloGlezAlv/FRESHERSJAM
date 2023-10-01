@@ -1,3 +1,7 @@
+#if UNITY_EDITOR
+using UnityEditor.Experimental.GraphView;
+#endif
+
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -28,7 +32,7 @@ public class PlayerMov : MonoBehaviour
     Vector2 lastMovementDirection = new Vector2(1, 1);  // to be used when calculating "acceleration" after the player releases the WASD keys.
 
     [SerializeField] float MAX_ACCELERATION = 5; // To stop the player's velocity from increasing forever.
-    [SerializeField] float DRAG_COEFFICIENT = 1;    // Increase drag to give the player more control.
+    [SerializeField] float DRAG_COEFFICIENT = 5;    // Increase drag to give the player more control.
 
     Queue<Vector3> mousePos = new Queue<Vector3>();
 
@@ -175,7 +179,6 @@ public class PlayerMov : MonoBehaviour
         if (lastMovementDirection.y > 0)
         {
             acceleration.y -= Time.deltaTime * DRAG_COEFFICIENT;
-
             if (acceleration.y < 0)
                 acceleration.y = 0;
             else if (acceleration.y > MAX_ACCELERATION)
