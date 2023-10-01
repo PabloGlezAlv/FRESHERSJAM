@@ -18,12 +18,24 @@ public class RunAway : Cell
 
     void FixedUpdate()
     {
+        if (knockback && currKnockbackTime <= knockbackTime)
+        {
+            currKnockbackTime += Time.fixedDeltaTime;
+            return;
+        }
+
+        currKnockbackTime = 0;
+        knockback = false;
+
+
         if (CommonInfo.timePaused)
         {
             rb.velocity = Vector3.zero;
             transform.rotation = transform.rotation;
             return;
         }
+
+        
 
         List<RunAway> delete = new List<RunAway>();
         foreach (RunAway boid in boidsInScene)
@@ -98,7 +110,7 @@ public class RunAway : Cell
 
         foreach (Collider2D coll in Physics2D.OverlapCircleAll(transform.position, collisionAvoidCheckDistance))
         {
-            if (coll.GetComponent<RunAway>() != null)
+            if (coll.GetComponent<Cell>() != null)
             {
                 faceAwayDirection = faceAwayDirection + (Vector2)(transform.position - coll.transform.position);
             }

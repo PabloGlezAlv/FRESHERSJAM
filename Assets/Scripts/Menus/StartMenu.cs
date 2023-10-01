@@ -25,7 +25,7 @@ public class StartMenu : MonoBehaviour
     // Loads the game's first scene
     public void OnGameStart()
     {
-        SceneManager.LoadScene(firstScene);
+        SceneManager.LoadScene("MainGame");
     }
 
     public void GoToSettings()

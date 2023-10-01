@@ -47,8 +47,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f2457a3da8fa1a4facee364c19ccd58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  size: 0.5
+  size: 0.1
+  sizeToEat: 1
   speed: 0.75
+  knockbackTime: 1
+  sizeHitDecrease: 0.05
   travelTime: 2
   travelTimeModifier: 0.75
 --- !u!50 &1505282469383469552
@@ -124,7 +127,7 @@ GameObject:
   - component: {fileID: 3489603537575214078}
   - component: {fileID: 7903881195175109784}
   m_Layer: 0
-  m_Name: Circle
+  m_Name: RoamingCellSprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -187,7 +190,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.8962264, g: 0.8359774, b: 0.21560161, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

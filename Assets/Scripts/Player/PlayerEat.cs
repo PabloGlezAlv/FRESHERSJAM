@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
 public class PlayerEat : MonoBehaviour
@@ -10,7 +11,7 @@ public class PlayerEat : MonoBehaviour
     [SerializeField] int numberOfPulses;
 
     private float timer = 0;
-    private const float PULSETIMER = 0.2f;
+    [SerializeField] float PULSETIMER = 0.2f;
     private float sizeToGrow = 0;
     private bool growing = false;
     private int nPulses = 0;
@@ -19,14 +20,11 @@ public class PlayerEat : MonoBehaviour
     private Vector3 scaleSmall = Vector3.one;
 
 
-    private void Init()
-    {
-        scaleSmall = transform.localScale;
-    }
 
     private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
+        scaleSmall = new Vector3(player.transform.localScale.x, player.transform.localScale.y, player.transform.localScale.z);
     }
 
     private void Update()
@@ -38,6 +36,13 @@ public class PlayerEat : MonoBehaviour
             {
                 //Make the player bigger
                 player.transform.localScale += scaleChange;
+
+                //CHECK DEAD
+                if(player.transform.localScale.x < (scaleSmall.x - 0.0f))
+                {
+                    Debug.Log("Local scale x = " + player.transform.localScale.x);
+                    SceneManager.LoadScene("Dead Menu");
+                }
 
                 nPulses++;
                 timer = 0;
@@ -52,27 +57,36 @@ public class PlayerEat : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.GetComponent<Cell>())
+        if (collision.gameObject.GetComponent<Cell>() && collision.gameObject.GetComponent<Cell>().getSizeToEat() <= player.transform.localScale.x )
         {
             float scaleFactor;
             growing = true;
-            CommonInfo.timePaused = true;
+            //CommonInfo.timePaused = true;
 
-            if (false /*TODO: For the boss*/)
+            
+            if (collision.gameObject.GetComponent<Boss>())
             {
-                scaleFactor = -(transform.localScale.x - scaleSmall.x);
-                scaleChange = new Vector3(scaleFactor, scaleFactor, 1);
-
+                   scaleFactor = -(player.transform.localScale.x - 0.01f - scaleSmall.x) / (float) numberOfPulses;
             }
             else
             {
                 sizeToGrow = collision.gameObject.GetComponent<Cell>().getSize();
-                scaleFactor = sizeToGrow;
+                scaleFactor = sizeToGrow / numberOfPulses;
             }
 
-            scaleChange = new Vector3(scaleFactor, scaleFactor, 1);
+            //Debug.Log(scaleFactor);
+
+            scaleChange = new Vector3(scaleFactor, scaleFactor, 0);
             Destroy(collision.gameObject);
         }
+    }
+
+    public void reduceSize(float size)
+    {
+        if (growing) return;
+        growing = true;
+        //CommonInfo.timePaused = true;
+        scaleChange = new Vector3(-size / numberOfPulses, -size / numberOfPulses, 0);
     }
 
 }
