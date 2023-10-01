@@ -128,7 +128,7 @@ MonoBehaviour:
   - {fileID: 8258259542183537225}
   spawnTimer: 0.4
   spawnEntity: {fileID: 5644724640227246850, guid: f270837d854cae64bae2d0b5ca2d9eee, type: 3}
-  maxEnemies: 12
+  maxEnemies: 32
 --- !u!58 &1066675112464303617
 CircleCollider2D:
   m_ObjectHideFlags: 0
