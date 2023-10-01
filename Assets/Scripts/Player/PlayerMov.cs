@@ -19,7 +19,7 @@ public class PlayerMov : MonoBehaviour
 
     [SerializeField] float runSpeed = 20.0f;
 
-    [SerializeField] float timeFreeze = 0.5f;
+    [SerializeField] float timeFreeze = 5f;
     [SerializeField] float dieSpeed = 1f;
     [SerializeField] GameObject endBlur;
 
@@ -52,7 +52,6 @@ public class PlayerMov : MonoBehaviour
     {
         freeze = true;
         rb.velocity = Vector3.zero;
-        Debug.Log(rb.velocity);
     }
 
     private void Update()
@@ -69,7 +68,6 @@ public class PlayerMov : MonoBehaviour
             }
             else
             {
-                Debug.Log(rb.velocity);
                 timer += Time.deltaTime;
 
                 if (timer >= timeFreeze)
