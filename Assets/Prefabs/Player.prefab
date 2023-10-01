@@ -193,8 +193,10 @@ MonoBehaviour:
   runSpeed: 5
   timeFreeze: 0.5
   dieSpeed: 0.5
-  endBlur: {fileID: 7594553775617027925}
-  MAX_ACCELERATION: 1
+  rotateSpeed: 3
+  endBlur: {fileID: 2789865175876663572, guid: fe1a32cb93287204b9d4a6aca6cba062, type: 3}
+  animation: {fileID: 7517894901690756425}
+  MAX_ACCELERATION: 5
   DRAG_COEFFICIENT: 5
 --- !u!50 &6988591726770761376
 Rigidbody2D:
@@ -664,6 +666,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2c7b088ac91cc444e82939089c10b312, type: 3}
+--- !u!95 &7517894901690756425 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 1461781884884103716, guid: 2c7b088ac91cc444e82939089c10b312, type: 3}
+  m_PrefabInstance: {fileID: 8943488559241846637}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8333452366147188155 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1133774280668359382, guid: 2c7b088ac91cc444e82939089c10b312, type: 3}

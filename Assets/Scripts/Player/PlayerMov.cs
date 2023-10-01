@@ -1,7 +1,3 @@
-#if UNITY_EDITOR
-using UnityEditor.Experimental.GraphView;
-#endif
-
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -21,22 +17,25 @@ public class PlayerMov : MonoBehaviour
 
     [SerializeField] float timeFreeze = 5f;
     [SerializeField] float dieSpeed = 1f;
+    [SerializeField] float rotateSpeed = 3f;
     [SerializeField] GameObject endBlur;
+    [SerializeField] Animator animation;
 
     private bool freeze = false;
 
     float timer = 0;
+    float rotate = 0;
 
     Vector2 acceleration = new Vector2(0, 0);   // not true acceleration, mathematically, but I don't want to confuse it with the RB's velocity var
     Vector2 lastMovementDirection = new Vector2(1, 1);  // to be used when calculating "acceleration" after the player releases the WASD keys.
 
-    [SerializeField] float MAX_ACCELERATION = 5; // To stop the player's velocity from increasing forever.
+    [SerializeField] float MAX_ACCELERATION = 1; // To stop the player's velocity from increasing forever.
     [SerializeField] float DRAG_COEFFICIENT = 5;    // Increase drag to give the player more control.
 
     Queue<Vector3> mousePos = new Queue<Vector3>();
 
     bool dying = false;
-    
+
 
     private void Start()
     {
@@ -48,10 +47,12 @@ public class PlayerMov : MonoBehaviour
     {
         dying = true;
     }
-    public void setFreeze( bool set)
+    public void setFreeze(bool set)
     {
         freeze = true;
         rb.velocity = Vector3.zero;
+        animation.enabled = false;
+        Debug.Log("cONGELADO");
     }
 
     private void Update()
@@ -73,6 +74,7 @@ public class PlayerMov : MonoBehaviour
                 if (timer >= timeFreeze)
                 {
                     timer = 0;
+                    animation.enabled = true;
                     freeze = false;
                 }
             }
@@ -80,10 +82,9 @@ public class PlayerMov : MonoBehaviour
         else
         {
             rb.velocity = Vector3.zero;
-            transform.rotation = transform.rotation;
         }
 
-        if(dying)
+        if (dying)
         {
             Color tmp = rbSprite.color;
             tmp.a -= dieSpeed * Time.deltaTime;
@@ -104,12 +105,26 @@ public class PlayerMov : MonoBehaviour
         {
             DriftHorizontal();
         }
-        // if the player is holding down W or S
+        // if the player is holding down A or D
         else
         {
+            if (lastMovementDirection.x == horizontal * -1)
+                DriftHorizontal();
+            else
+            {
+                // This is why "acceleration" isn't true acceleration - I'm adding time to it here, which technically makes it velocity
+                if ((acceleration.x < 0 && horizontal > 0) || (acceleration.x > 0 && horizontal < 0))
+                    acceleration.x += (Time.deltaTime * horizontal * DRAG_COEFFICIENT);
+                else
+                    acceleration.x += (Time.deltaTime * horizontal);
+
+                if (horizontal > 0 && acceleration.x > MAX_ACCELERATION)
+                    acceleration.x = MAX_ACCELERATION;
+                else if (horizontal < 0 && acceleration.x < (MAX_ACCELERATION * -1))
+                    acceleration.x = MAX_ACCELERATION * -1;
+            }
+
             lastMovementDirection.x = horizontal;
-            // This is why "acceleration" isn't true acceleration - I'm adding time to it here, which technically makes it velocity
-            acceleration.x += (Time.deltaTime * horizontal);
         }
 
         // Same as above, but for vertical movement.
@@ -117,11 +132,20 @@ public class PlayerMov : MonoBehaviour
         {
             DriftVertical();
         }
-        // If the player is holding down A or D
+        // If the player is holding down W or S
         else
         {
+            if ((acceleration.y < 0 && vertical > 0) || (acceleration.y > 0 && vertical < 0))
+                acceleration.y += (Time.deltaTime * vertical * DRAG_COEFFICIENT);
+            else
+                acceleration.y += (Time.deltaTime * vertical);
+
+            if (vertical > 0 && acceleration.y > MAX_ACCELERATION)
+                acceleration.y = MAX_ACCELERATION;
+            else if (vertical < 0 && acceleration.y < (MAX_ACCELERATION * -1))
+                acceleration.y = MAX_ACCELERATION * -1;
+
             lastMovementDirection.y = vertical;
-            acceleration.y += (Time.deltaTime * vertical);
         }
 
         // Here is where we actually set the rigidbody's velocity
@@ -157,12 +181,12 @@ public class PlayerMov : MonoBehaviour
         }
         else if (lastMovementDirection.x < 0)   // Same as above, but for drifting left.
         {
-            acceleration.x += Time.deltaTime;
+            acceleration.x += Time.deltaTime * DRAG_COEFFICIENT;
 
             if (acceleration.x > 0)
                 acceleration.x = 0;
-            else if (acceleration.y < MAX_ACCELERATION * -1)
-                acceleration.y = MAX_ACCELERATION * -1;
+            else if (acceleration.x < MAX_ACCELERATION * -1)
+                acceleration.x = MAX_ACCELERATION * -1;
         }
     }
 
@@ -175,6 +199,7 @@ public class PlayerMov : MonoBehaviour
         if (lastMovementDirection.y > 0)
         {
             acceleration.y -= Time.deltaTime * DRAG_COEFFICIENT;
+
             if (acceleration.y < 0)
                 acceleration.y = 0;
             else if (acceleration.y > MAX_ACCELERATION)
@@ -182,7 +207,7 @@ public class PlayerMov : MonoBehaviour
         }
         else if (lastMovementDirection.y < 0)
         {
-            acceleration.y += Time.deltaTime;
+            acceleration.y += Time.deltaTime * DRAG_COEFFICIENT;
 
             if (acceleration.y > 0)
                 acceleration.y = 0;
@@ -199,14 +224,19 @@ public class PlayerMov : MonoBehaviour
         // Body rotation - only happens if the game is not paused (i.e., timeScale != 0)
         if (Time.timeScale != 0)
         {
-            mousePos.Enqueue(Input.mousePosition);
+            /*mousePos.Enqueue(Input.mousePosition);
 
-            if (mousePos.Count > 50)
+            if (mousePos.Count > 10)
             {
                 Vector3 dir = mousePos.Dequeue() - Camera.main.WorldToScreenPoint(transform.position);
                 float mouseAngle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
                 transform.rotation = Quaternion.AngleAxis(mouseAngle, Vector3.forward);
-            }
+            }*/
+
+            Vector3 dir = Input.mousePosition - Camera.main.WorldToScreenPoint(transform.position);
+            float mouseAngle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+            transform.rotation = Quaternion.AngleAxis(mouseAngle, Vector3.forward);
+
         }
     }
 }
