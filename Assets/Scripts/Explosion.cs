@@ -24,6 +24,11 @@ public class Explosion : MonoBehaviour
 
     float belowMARGIN = 0f;
     int countDown = 1;
+
+    [SerializeField] AudioSource explosionIncoming;
+    [SerializeField] AudioSource explosionSound;
+    [SerializeField] AudioClip bloodGush;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -43,6 +48,7 @@ public class Explosion : MonoBehaviour
                 CommonInfo.cameraMoving = true;
                 startExplosion = true;
                 Invoke("CreateExplosion", CommonInfo.TimeMoving);
+                explosionIncoming.Play();
             }
         }
         if(startExplosion)
@@ -71,6 +77,8 @@ public class Explosion : MonoBehaviour
             UnityEngine.Color tmp = redVeinImage.color;
             tmp.a = 0;
             redVeinImage.color = tmp;
+
+            explosionSound.Stop();
         }
     }
 
@@ -79,6 +87,8 @@ public class Explosion : MonoBehaviour
         startExplosion = false;
         timer = 0;
         explode = true;
+        explosionIncoming.Stop();
+        explosionSound.Play();
     }
     private void OnTriggerEnter2D(Collider2D other)
     {

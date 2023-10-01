@@ -36,6 +36,8 @@ public class PlayerMov : MonoBehaviour
 
     bool dying = false;
 
+    [SerializeField] AudioClip freezeSound;
+    [SerializeField] AudioSource freezeSoundPlayer;
 
     private void Start()
     {
@@ -53,6 +55,8 @@ public class PlayerMov : MonoBehaviour
         rb.velocity = Vector3.zero;
         animation.enabled = false;
         Debug.Log("cONGELADO");
+        freezeSoundPlayer.Play();
+        print("Freeze");
     }
 
     private void Update()
@@ -76,6 +80,7 @@ public class PlayerMov : MonoBehaviour
                     timer = 0;
                     animation.enabled = true;
                     freeze = false;
+                    freezeSoundPlayer.Stop();
                 }
             }
         }

@@ -19,7 +19,7 @@ public class PlayerEat : MonoBehaviour
 
     private Vector3 scaleSmall = Vector3.one;
 
-
+    [SerializeField] AudioSource eatSound;
 
     private void Start()
     {
@@ -79,6 +79,8 @@ public class PlayerEat : MonoBehaviour
 
             scaleChange = new Vector3(scaleFactor, scaleFactor, 0);
             Destroy(collision.gameObject);
+
+            eatSound.Play();
         }
     }
 
