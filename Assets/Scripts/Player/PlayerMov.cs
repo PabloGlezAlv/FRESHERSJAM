@@ -1,7 +1,10 @@
+#if UNITY_EDITOR
+using UnityEditor.Experimental.GraphView;
+#endif
+
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UI;
 using static UnityEngine.UI.ScrollRect;
