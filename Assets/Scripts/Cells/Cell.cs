@@ -18,7 +18,7 @@ public class Cell : MonoBehaviour
     [SerializeField]
     private float sizeHitDecrease = 0.5f;
 
-    private GameObject player;
+    protected GameObject player;
     protected bool knockback = false;
     
     protected float currKnockbackTime = 0f;

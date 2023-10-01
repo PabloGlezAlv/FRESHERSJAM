@@ -7,7 +7,6 @@ public class Soldier : Cell
 
     Vector2 direction;
     RunAway[] boidsInScene;
-    GameObject player;
 
     void Start()
     {
