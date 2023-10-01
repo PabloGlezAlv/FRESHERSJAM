@@ -6,5 +6,5 @@ public static class CommonInfo
 {
     public static bool timePaused = false;
     public static bool cameraMoving = false;
-    public static float TimeMoving = 5;
+    public static float TimeMoving = 2;
 }
