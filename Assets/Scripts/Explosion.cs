@@ -6,8 +6,7 @@ public class Explosion : MonoBehaviour
 {
     private float time = 0;
     [SerializeField] float explosionTime = 5f;
-
-    [SerializeField] GameObject explosion;
+    [SerializeField] float explosionDuration = 0.4f;
 
     float timer = 0;
     float MAX_TIME = 1;
@@ -22,25 +21,27 @@ public class Explosion : MonoBehaviour
     {
         timer += Time.deltaTime;
 
-        if (timer > MAX_TIME)
+        if (timer > MAX_TIME && !explode)
         {
             timer = 0;
-
             CommonInfo.cameraMoving = true;
 
             Invoke("CreateExplosion", CommonInfo.TimeMoving);
+        }
+        else if (timer > explosionDuration && !explode)
+        {
+            explode = false;
+            timer = 0;
         }
     }
 
     public void CreateExplosion()
     {
-
+        explode = true;
     }
-
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("eXPLOSITON TOCA");
-        if(other.gameObject.GetComponent<PlayerMov>() && !CommonInfo.timePaused)
+        if (other.gameObject.GetComponent<PlayerMov>() && !CommonInfo.timePaused && explode)
         {
             other.gameObject.GetComponent<PlayerMov>().setFreeze(true);
         }

@@ -9,13 +9,16 @@ using static UnityEngine.UI.ScrollRect;
 public class PlayerMov : MonoBehaviour
 {
     private Rigidbody2D rb;
+    private SpriteRenderer rbSprite;
 
     private float horizontal;
     private float vertical;
 
     [SerializeField] float runSpeed = 20.0f;
 
-    [SerializeField] float timeFreeze = 1.0f;
+    [SerializeField] float timeFreeze = 0.5f;
+    [SerializeField] float dieSpeed = 1f;
+    [SerializeField] GameObject endBlur;
 
     private bool freeze = false;
 
@@ -29,18 +32,29 @@ public class PlayerMov : MonoBehaviour
 
     Queue<Vector3> mousePos = new Queue<Vector3>();
 
+    bool dying = false;
+    
+
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        rbSprite = GetComponent<SpriteRenderer>();
     }
 
-    public void setFreeze(bool set)
+    public void die()
+    {
+        dying = true;
+    }
+    public void setFreeze( bool set)
     {
         freeze = true;
+        rb.velocity = Vector3.zero;
+        Debug.Log(rb.velocity);
     }
 
     private void Update()
     {
+
         if (!CommonInfo.timePaused)
         {
             if (!freeze)
@@ -52,7 +66,9 @@ public class PlayerMov : MonoBehaviour
             }
             else
             {
+                Debug.Log(rb.velocity);
                 timer += Time.deltaTime;
+
                 if (timer >= timeFreeze)
                 {
                     timer = 0;
@@ -65,11 +81,23 @@ public class PlayerMov : MonoBehaviour
             rb.velocity = Vector3.zero;
             transform.rotation = transform.rotation;
         }
+
+        if(dying)
+        {
+            Color tmp = rbSprite.color;
+            tmp.a -= dieSpeed * Time.deltaTime;
+            if (tmp.a <= 0)
+            {
+                endBlur.GetComponent<Blur>().StartBlur();
+                Destroy(this.gameObject);
+            }
+            rbSprite.color = tmp;
+        }
     }
 
     private void FixedUpdate()
     {
-        if (CommonInfo.timePaused) return;
+        if (CommonInfo.timePaused || freeze) return;
 
         // Use the movement
         if (horizontal == 0)    // if there is no horizontal input, we slow down velocity over time.

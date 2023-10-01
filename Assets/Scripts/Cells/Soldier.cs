@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RunAway : Cell
+public class Soldier : Cell
 {
 
     Vector2 direction;
@@ -27,7 +27,6 @@ public class RunAway : Cell
         currKnockbackTime = 0;
         knockback = false;
 
-
         if (CommonInfo.timePaused)
         {
             rb.velocity = Vector3.zero;
@@ -35,9 +34,7 @@ public class RunAway : Cell
             return;
         }
 
-        
-
-        List<RunAway> delete = new List<RunAway>();
+        List<RunAway> delete = new();
         foreach (RunAway boid in boidsInScene)
         {
             if (boid == null) {
@@ -46,13 +43,15 @@ public class RunAway : Cell
         }
 
 
-        direction = new Vector2(+ transform.position.x - player.transform.position.x, + transform.position.y - player.transform.position.y).normalized;
+        direction = new Vector2(- transform.position.x + player.transform.position.x, - transform.position.y + player.transform.position.y).normalized;
         AlignWithOthers();
         MoveToCenter();
         AvoidOtherBoids();
         //transform.Translate(direction * (speed * Time.deltaTime));
 
         // Move senteces
+        //if (rb.velocity.x > speed) return;
+        //rb.AddForce(direction.normalized);
         rb.velocity = direction * speed;
         //rb.velocity = new Vector2(Mathf.Lerp(0, Input.GetAxisRaw("Horizontal") * speed, 0.8f),
         //                                     Mathf.Lerp(0, Input.GetAxisRaw("Vertical") * speed, 0.8f));
@@ -69,7 +68,7 @@ public class RunAway : Cell
 
         foreach (Collider2D coll in Physics2D.OverlapCircleAll(transform.position, localBoidsDistance) )
         {
-            if(coll.GetComponent<RunAway>() != null) {
+            if(coll.GetComponent<Soldier>() != null) {
                 positionSum += (Vector2)coll.transform.position;
                 count++;
             }
@@ -145,9 +144,9 @@ public class RunAway : Cell
 
         foreach (Collider2D coll in Physics2D.OverlapCircleAll(transform.position, alignmentCheckDistance))
         {
-            if (coll.GetComponent<RunAway>() != null)
+            if (coll.GetComponent<Soldier>() != null)
             {
-                directionSum += coll.GetComponent<RunAway>().direction;
+                directionSum += coll.GetComponent<Soldier>().direction;
                 count++;
             }
         }
