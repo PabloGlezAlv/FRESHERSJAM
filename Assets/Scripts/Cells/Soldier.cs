@@ -18,6 +18,15 @@ public class Soldier : Cell
 
     void FixedUpdate()
     {
+        if (knockback && currKnockbackTime <= knockbackTime)
+        {
+            currKnockbackTime += Time.fixedDeltaTime;
+            return;
+        }
+
+        currKnockbackTime = 0;
+        knockback = false;
+
         if (CommonInfo.timePaused)
         {
             rb.velocity = Vector3.zero;
@@ -25,7 +34,7 @@ public class Soldier : Cell
             return;
         }
 
-        List<RunAway> delete = new List<RunAway>();
+        List<RunAway> delete = new();
         foreach (RunAway boid in boidsInScene)
         {
             if (boid == null) {
@@ -41,6 +50,8 @@ public class Soldier : Cell
         //transform.Translate(direction * (speed * Time.deltaTime));
 
         // Move senteces
+        //if (rb.velocity.x > speed) return;
+        //rb.AddForce(direction.normalized);
         rb.velocity = direction * speed;
         //rb.velocity = new Vector2(Mathf.Lerp(0, Input.GetAxisRaw("Horizontal") * speed, 0.8f),
         //                                     Mathf.Lerp(0, Input.GetAxisRaw("Vertical") * speed, 0.8f));

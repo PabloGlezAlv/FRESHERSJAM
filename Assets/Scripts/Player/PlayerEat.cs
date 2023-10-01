@@ -38,8 +38,9 @@ public class PlayerEat : MonoBehaviour
                 player.transform.localScale += scaleChange;
 
                 //CHECK DEAD
-                if(player.transform.localScale.x < scaleSmall.x)
+                if(player.transform.localScale.x < (scaleSmall.x - 0.0f))
                 {
+                    Debug.Log("Local scale x = " + player.transform.localScale.x);
                     SceneManager.LoadScene("Dead Menu");
                 }
 
@@ -65,7 +66,7 @@ public class PlayerEat : MonoBehaviour
             
             if (collision.gameObject.GetComponent<Boss>())
             {
-                   scaleFactor = -(player.transform.localScale.x - scaleSmall.x) /numberOfPulses;
+                   scaleFactor = -(player.transform.localScale.x - 0.01f - scaleSmall.x) / (float) numberOfPulses;
             }
             else
             {

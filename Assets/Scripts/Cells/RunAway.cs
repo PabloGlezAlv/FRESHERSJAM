@@ -18,12 +18,24 @@ public class RunAway : Cell
 
     void FixedUpdate()
     {
+        if (knockback && currKnockbackTime <= knockbackTime)
+        {
+            currKnockbackTime += Time.fixedDeltaTime;
+            return;
+        }
+
+        currKnockbackTime = 0;
+        knockback = false;
+
+
         if (CommonInfo.timePaused)
         {
             rb.velocity = Vector3.zero;
             transform.rotation = transform.rotation;
             return;
         }
+
+        
 
         List<RunAway> delete = new List<RunAway>();
         foreach (RunAway boid in boidsInScene)
