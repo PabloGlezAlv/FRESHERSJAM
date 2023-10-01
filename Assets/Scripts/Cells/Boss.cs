@@ -98,6 +98,7 @@ public class Boss : Cell
         currentSpawnTimer += Time.fixedDeltaTime;
 
         if (currentSpawnTimer < spawnTimer) return;
+        currentSpawnTimer = 0f;
         if (enemies.Count >= maxEnemies) return;
         Vector3 position = spawnPositions[Random.Range(0, spawnPositions.Length)].position;
 

@@ -61,7 +61,7 @@ public class PlayerEat : MonoBehaviour
         {
             float scaleFactor;
             growing = true;
-            CommonInfo.timePaused = true;
+            //CommonInfo.timePaused = true;
 
             
             if (collision.gameObject.GetComponent<Boss>())
@@ -83,8 +83,9 @@ public class PlayerEat : MonoBehaviour
 
     public void reduceSize(float size)
     {
+        if (growing) return;
         growing = true;
-        CommonInfo.timePaused = true;
+        //CommonInfo.timePaused = true;
         scaleChange = new Vector3(-size / numberOfPulses, -size / numberOfPulses, 0);
     }
 

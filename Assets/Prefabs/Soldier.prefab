@@ -111,14 +111,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   size: 0.1
   sizeToEat: 1
-  speed: 4
-  knockbackTime: 0.5
+  speed: 5
+  knockbackTime: 0.2
   sizeHitDecrease: 0.15
   moveToCenterStrength: 2
   localBoidsDistance: 3
   avoidOtherStrength: 3
   collisionAvoidCheckDistance: 3
-  alignWithOthersStrength: 3
+  alignWithOthersStrength: 1
   alignmentCheckDistance: 3
 --- !u!1 &7370537946208697078
 GameObject:
@@ -192,7 +192,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
   m_Color: {r: 0.14417945, g: 0.3902692, b: 0.6792453, a: 1}
   m_FlipX: 0
