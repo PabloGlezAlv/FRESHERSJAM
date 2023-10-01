@@ -20,11 +20,9 @@ public class Boss : Cell
     private int maxEnemies;
 
     private float currentSpawnTimer = 0f;
-    private int currentSpawnPoint = 0;
 
 
     Vector2 direction;
-    GameObject player;
     List<GameObject> enemies;
 
     void Start()
