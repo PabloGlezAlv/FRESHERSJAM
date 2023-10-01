@@ -21,11 +21,14 @@ public class PlayerMov : MonoBehaviour
 
     [SerializeField] float timeFreeze = 5f;
     [SerializeField] float dieSpeed = 1f;
+    [SerializeField] float rotateSpeed = 3f;
     [SerializeField] GameObject endBlur;
+    [SerializeField] Animator animation;
 
     private bool freeze = false;
 
     float timer = 0;
+    float rotate = 0;
 
     Vector2 acceleration = new Vector2(0, 0);   // not true acceleration, mathematically, but I don't want to confuse it with the RB's velocity var
     Vector2 lastMovementDirection = new Vector2(1, 1);  // to be used when calculating "acceleration" after the player releases the WASD keys.
@@ -52,6 +55,8 @@ public class PlayerMov : MonoBehaviour
     {
         freeze = true;
         rb.velocity = Vector3.zero;
+        animation.enabled = false;
+        Debug.Log("cONGELADO");
     }
 
     private void Update()
@@ -73,6 +78,7 @@ public class PlayerMov : MonoBehaviour
                 if (timer >= timeFreeze)
                 {
                     timer = 0;
+                    animation.enabled = true;
                     freeze = false;
                 }
             }
@@ -80,7 +86,6 @@ public class PlayerMov : MonoBehaviour
         else
         {
             rb.velocity = Vector3.zero;
-            transform.rotation = transform.rotation;
         }
 
         if(dying)

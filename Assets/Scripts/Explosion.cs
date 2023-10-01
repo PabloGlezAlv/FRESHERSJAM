@@ -22,9 +22,9 @@ public class Explosion : MonoBehaviour
     bool startExplosion = false;
     bool alreadyStopped = false;
 
-    float speed = 1;
+    float speed = 3.5f;
 
-    float belowMARGIN = 0.f;
+    float belowMARGIN = 0.0f;
     int countDown = 1;
     // Start is called before the first frame update
     void Start()
@@ -44,7 +44,6 @@ public class Explosion : MonoBehaviour
                 timer = 0;
                 CommonInfo.cameraMoving = true;
                 startExplosion = true;
-                Debug.Log("AVISO DE EXPLOTAR");
                 Invoke("CreateExplosion", CommonInfo.TimeMoving);
             }
         }
@@ -74,13 +73,11 @@ public class Explosion : MonoBehaviour
             UnityEngine.Color tmp = redVeinImage.color;
             tmp.a = 0;
             redVeinImage.color = tmp;
-            Debug.Log("FIN EXPLOSION");
         }
     }
 
     public void CreateExplosion()
     {
-        Debug.Log("ESTOY EXPLOTANDO");
         startExplosion = false;
         timer = 0;
         explode = true;
@@ -89,9 +86,9 @@ public class Explosion : MonoBehaviour
     {
         if (other.gameObject.GetComponent<PlayerMov>() && !CommonInfo.timePaused && explode)
         {
-            Debug.Log("CHOCADO");
             other.gameObject.GetComponent<PlayerMov>().setFreeze(true);
             alreadyStopped = true;
+            timer = 0;
         }
     }
 
@@ -99,9 +96,9 @@ public class Explosion : MonoBehaviour
     {
         if (other.gameObject.GetComponent<PlayerMov>() && !CommonInfo.timePaused && explode && !alreadyStopped)
         {
-            Debug.Log("CHOCADO");
             other.gameObject.GetComponent<PlayerMov>().setFreeze(true);
             alreadyStopped = true;
+            timer = 0;
         }
     }
 

@@ -54,7 +54,6 @@ public class Cell : MonoBehaviour
 
     public void KnockBack(Vector3 force)
     {
-        Debug.Log("Trying");
         rb.AddForce(force, ForceMode2D.Impulse);
         knockback = true;
         currKnockbackTime = 0;
