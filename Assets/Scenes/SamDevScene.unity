@@ -615,6 +615,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -927664254603204905, guid: 120136d1c4428a84d86b0efd56ef60a7, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: d33548beb0d9cb1488200ac1add8449a, type: 3}
     - target: {fileID: 520413259239610529, guid: 120136d1c4428a84d86b0efd56ef60a7, type: 3}
       propertyPath: numberOfPulses
       value: 10
@@ -627,6 +631,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 6661317519831216850, guid: 120136d1c4428a84d86b0efd56ef60a7, type: 3}
+      propertyPath: freezeSound
+      value: 
+      objectReference: {fileID: 8300000, guid: d33548beb0d9cb1488200ac1add8449a, type: 3}
+    - target: {fileID: 6661317519831216850, guid: 120136d1c4428a84d86b0efd56ef60a7, type: 3}
+      propertyPath: freezeSoundPlayer
+      value: 
+      objectReference: {fileID: 817615232}
     - target: {fileID: 8593305256973020524, guid: 120136d1c4428a84d86b0efd56ef60a7, type: 3}
       propertyPath: m_LocalPosition.x
       value: 174.1
@@ -3604,6 +3616,9 @@ MonoBehaviour:
   explosionDuration: 1
   startSpeed: 1
   redVein: {fileID: 1328335633}
+  explosionIncoming: {fileID: 0}
+  explosionSound: {fileID: 0}
+  bloodGush: {fileID: 0}
 --- !u!1001 &364895694
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5024,6 +5039,11 @@ MonoBehaviour:
   cameraPosition: {fileID: 977818618}
   cameraSize: 106
   transitionTime: 5
+--- !u!82 &817615232 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: -927664254603204905, guid: 120136d1c4428a84d86b0efd56ef60a7, type: 3}
+  m_PrefabInstance: {fileID: 221204093}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &859096168
 PrefabInstance:
   m_ObjectHideFlags: 0

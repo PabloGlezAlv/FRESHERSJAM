@@ -13,6 +13,8 @@ public class StartMenu : MonoBehaviour
     public string firstScene;
     public string settingsScene;
 
+    [SerializeField] AudioSource buttonClickSound;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -29,6 +31,7 @@ public class StartMenu : MonoBehaviour
     public void OnGameStart()
     {
         SceneManager.LoadScene("SamDevScene");
+        buttonClickSound.Play();
     }
 
     public void GoToSettings()
@@ -39,6 +42,8 @@ public class StartMenu : MonoBehaviour
     // Quits to desktop. If testing in the editor, ends play mode.
     public void OnGameQuit()
     {
+        buttonClickSound.Play();
+
         #if UNITY_EDITOR
         EditorApplication.ExitPlaymode();
         #else
