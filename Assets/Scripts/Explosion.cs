@@ -24,7 +24,7 @@ public class Explosion : MonoBehaviour
 
     float speed = 1;
 
-    float belowMARGIN = 0.5f;
+    float belowMARGIN = 0.f;
     int countDown = 1;
     // Start is called before the first frame update
     void Start()
@@ -57,8 +57,6 @@ public class Explosion : MonoBehaviour
             {
                 speed = -speed;
                 
-                belowMARGIN += (float)(0.5 * countDown);
-                countDown = countDown / 4;
             }
             if(tmp.a >= 1)
             {
