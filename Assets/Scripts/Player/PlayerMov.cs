@@ -27,8 +27,8 @@ public class PlayerMov : MonoBehaviour
     Vector2 acceleration = new Vector2(0, 0);   // not true acceleration, mathematically, but I don't want to confuse it with the RB's velocity var
     Vector2 lastMovementDirection = new Vector2(1, 1);  // to be used when calculating "acceleration" after the player releases the WASD keys.
 
-    [SerializeField]
-    float MAX_ACCELERATION = 5; // To stop the player's velocity from increasing forever.
+    [SerializeField] float MAX_ACCELERATION = 5; // To stop the player's velocity from increasing forever.
+    [SerializeField] float DRAG_COEFFICIENT = 1;    // Increase drag to give the player more control.
 
     Queue<Vector3> mousePos = new Queue<Vector3>();
 
@@ -148,8 +148,8 @@ public class PlayerMov : MonoBehaviour
     {
         if (lastMovementDirection.x > 0)    // If they were moving right, they continue to drift right.
         {
-            acceleration.x -= Time.deltaTime;   // But, acceleration slows.
-                                                // This if keeps acceleration bounded between 0 and its max value.
+            acceleration.x -= Time.deltaTime * DRAG_COEFFICIENT;   // But, acceleration slows.
+            // This if keeps acceleration bounded between 0 and its max value.
             if (acceleration.x < 0)
                 acceleration.x = 0;
             else if (acceleration.x > MAX_ACCELERATION)
@@ -174,7 +174,7 @@ public class PlayerMov : MonoBehaviour
     {
         if (lastMovementDirection.y > 0)
         {
-            acceleration.y -= Time.deltaTime;
+            acceleration.y -= Time.deltaTime * DRAG_COEFFICIENT;
 
             if (acceleration.y < 0)
                 acceleration.y = 0;
