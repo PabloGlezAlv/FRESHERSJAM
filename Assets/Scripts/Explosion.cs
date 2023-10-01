@@ -10,7 +10,6 @@ public class Explosion : MonoBehaviour
 
     float timer = 0;
     float MAX_TIME = 1;
-    bool explode = true;
     // Start is called before the first frame update
     void Start()
     {
