@@ -21,6 +21,7 @@ public class Blur : MonoBehaviour
     {
         startBlur = true;
     }
+
     // Update is called once per frame
     void Update()
     {
