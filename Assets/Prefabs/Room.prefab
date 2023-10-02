@@ -318,7 +318,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cameraPosition: {fileID: 3537677697372042093}
-  cameraSize: 22
+  cameraSize: 24
   transitionTime: 1
 --- !u!1 &6830789528879997960
 GameObject:

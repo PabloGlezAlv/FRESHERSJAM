@@ -29,7 +29,7 @@ public class StartMenu : MonoBehaviour
     // Loads the game's first scene
     public void OnGameStart()
     {
-        SceneManager.LoadScene("SamDevScene");
+        SceneManager.LoadScene("DO NOT TOUCH");
         buttonClickSound.Play();
         audio.Play();
     }

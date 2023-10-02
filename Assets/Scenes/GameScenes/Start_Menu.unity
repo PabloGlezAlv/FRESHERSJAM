@@ -408,8 +408,16 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 4.8
       objectReference: {fileID: 0}
+    - target: {fileID: 2997590315637332196, guid: e8a6080b522ef744182caf64b41d9675, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4679582932451183154, guid: e8a6080b522ef744182caf64b41d9675, type: 3}
       propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5167513539995822656, guid: e8a6080b522ef744182caf64b41d9675, type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7294669885880702368, guid: e8a6080b522ef744182caf64b41d9675, type: 3}
@@ -420,11 +428,22 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7320002051489346550, guid: e8a6080b522ef744182caf64b41d9675, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8204223990535149662, guid: e8a6080b522ef744182caf64b41d9675, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9152441136983868556, guid: e8a6080b522ef744182caf64b41d9675, type: 3}
       propertyPath: m_Name
       value: Room
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2997590315637332196, guid: e8a6080b522ef744182caf64b41d9675, type: 3}
+    - {fileID: 8204223990535149662, guid: e8a6080b522ef744182caf64b41d9675, type: 3}
+    - {fileID: 8838576320052512842, guid: e8a6080b522ef744182caf64b41d9675, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 2337964082183625146, guid: e8a6080b522ef744182caf64b41d9675, type: 3}
@@ -1312,7 +1331,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6661317519831216850, guid: 120136d1c4428a84d86b0efd56ef60a7, type: 3}
+    - {fileID: 3774109924430848334, guid: 120136d1c4428a84d86b0efd56ef60a7, type: 3}
+    - {fileID: 101293530499286821, guid: 120136d1c4428a84d86b0efd56ef60a7, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -1422,6 +1444,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audio: {fileID: 2044128612}
+  buttonClickSound: {fileID: 2095058047}
 --- !u!4 &2044128611
 Transform:
   m_ObjectHideFlags: 0
@@ -1564,6 +1587,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audio: {fileID: 0}
+  buttonClickSound: {fileID: 0}
 --- !u!4 &2095058046
 Transform:
   m_ObjectHideFlags: 0

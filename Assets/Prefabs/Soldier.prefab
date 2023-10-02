@@ -216,11 +216,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f76cd0bbaf19e204d9d40b33e926d2e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  size: 0.1
+  size: 0.15
   sizeToEat: 1
   speed: 5
-  knockbackTime: 0.2
-  sizeHitDecrease: 0.25
+  knockbackTime: 0.5
+  sizeHitDecrease: 0.2
   moveToCenterStrength: 2
   localBoidsDistance: 3
   avoidOtherStrength: 3
