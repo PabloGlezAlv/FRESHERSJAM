@@ -31,8 +31,6 @@ public class StartMenu : MonoBehaviour
     {
         SceneManager.LoadScene("SamDevScene");
         buttonClickSound.Play();
-    }
-
         audio.Play();
     }
 
