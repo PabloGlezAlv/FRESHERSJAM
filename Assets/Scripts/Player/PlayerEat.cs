@@ -20,6 +20,7 @@ public class PlayerEat : MonoBehaviour
     private Vector3 scaleSmall = Vector3.one;
 
     [SerializeField] AudioSource eatSound;
+    [SerializeField] AudioSource damageSound;
     private bool reset = false;
 
 
@@ -116,6 +117,7 @@ public class PlayerEat : MonoBehaviour
     public void reduceSize(float size)
     {
         if (reset) return;
+        damageSound.Play();
         //if (growing) return;
         growing = true;
         //CommonInfo.timePaused = true;
