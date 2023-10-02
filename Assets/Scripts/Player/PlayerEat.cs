@@ -19,6 +19,8 @@ public class PlayerEat : MonoBehaviour
 
     private Vector3 scaleSmall = Vector3.one;
 
+    private bool reset = false;
+
 
 
     private void Start()
@@ -30,7 +32,25 @@ public class PlayerEat : MonoBehaviour
 
     private void Update()
     {
-        if(growing)
+        if (reset)
+        {
+            timer += Time.deltaTime;
+            if (timer >= PULSETIMER)
+            {
+                //Make the player bigger
+                player.transform.localScale += scaleChange;
+
+                nPulses++;
+                timer = 0;
+                if (nPulses >= numberOfPulses)
+                {
+                    nPulses = 0;
+                    reset = false;
+                    CommonInfo.timePaused = false;
+                }
+            }
+        }
+        else if(growing)
         {
             timer += Time.deltaTime;
             if (timer >= PULSETIMER)
@@ -58,6 +78,8 @@ public class PlayerEat : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if(reset) return;
+
         if (collision.gameObject.GetComponent<Cell>() && collision.gameObject.GetComponent<Cell>().getSizeToEat() <= player.transform.localScale.x )
         {
             float scaleFactor;
@@ -67,7 +89,13 @@ public class PlayerEat : MonoBehaviour
             
             if (collision.gameObject.GetComponent<Boss>())
             {
-                   scaleFactor = -(player.transform.localScale.x - 0.5f - scaleSmall.x) / (float) numberOfPulses;
+                scaleFactor = -(player.transform.localScale.x - 0.5f - scaleSmall.x) / (float) numberOfPulses;
+                reset = true;
+                growing = false;
+                timer = 0;
+
+                nPulses = 0;
+                CommonInfo.timePaused = true;
             }
             else
             {
@@ -84,6 +112,7 @@ public class PlayerEat : MonoBehaviour
 
     public void reduceSize(float size)
     {
+        if (reset) return;
         //if (growing) return;
         growing = true;
         //CommonInfo.timePaused = true;

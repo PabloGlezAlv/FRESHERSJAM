@@ -100,6 +100,10 @@ public class PlayerMov : MonoBehaviour
     {
         if (CommonInfo.timePaused || freeze) return;
 
+        rb.velocity = new Vector2(horizontal, vertical) * runSpeed;
+
+        return;
+
         // Use the movement
         if (horizontal == 0)    // if there is no horizontal input, we slow down velocity over time.
         {
@@ -216,6 +220,7 @@ public class PlayerMov : MonoBehaviour
         }
     }
 
+
     /*
      * Rotates the player - but with some input lag.
      */
@@ -224,18 +229,29 @@ public class PlayerMov : MonoBehaviour
         // Body rotation - only happens if the game is not paused (i.e., timeScale != 0)
         if (Time.timeScale != 0)
         {
-            /*mousePos.Enqueue(Input.mousePosition);
+            //mousePos.Enqueue(Input.mousePosition);
 
-            if (mousePos.Count > 10)
-            {
-                Vector3 dir = mousePos.Dequeue() - Camera.main.WorldToScreenPoint(transform.position);
-                float mouseAngle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-                transform.rotation = Quaternion.AngleAxis(mouseAngle, Vector3.forward);
-            }*/
+            //if (mousePos.Count > 10)
+            //{
+            //    Vector3 dir = mousePos.Dequeue() - Camera.main.WorldToScreenPoint(transform.position);
+            //    float mouseAngle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+            //    transform.rotation = Quaternion.AngleAxis(mouseAngle, Vector3.forward);
+            //}
 
-            Vector3 dir = Input.mousePosition - Camera.main.WorldToScreenPoint(transform.position);
-            float mouseAngle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-            transform.rotation = Quaternion.AngleAxis(mouseAngle, Vector3.forward);
+            //Vector3 dir = Input.mousePosition - Camera.main.WorldToScreenPoint(transform.position);
+            //float currAngle = Mathf.Atan2(transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.x) * Mathf.Rad2Deg;
+            //float mouseAngle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+            //transform.rotation = Quaternion.AngleAxis(Mathf.LerpAngle(currAngle, mouseAngle, .1f), Vector3.forward);
+            ////transform.rotation = Quaternion.AngleAxis(mouseAngle, Vector3.forward);
+
+            Vector3 pos = Camera.main.WorldToScreenPoint(transform.position);
+            Vector3 dir2 = Input.mousePosition - pos;
+            float angle = Mathf.Atan2(dir2.y, dir2.x) * Mathf.Rad2Deg;
+            Quaternion targetRotation = Quaternion.AngleAxis(angle, Vector3.forward);
+
+            // Lerp to target rotation
+            transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * rotateSpeed);
+
 
         }
     }
